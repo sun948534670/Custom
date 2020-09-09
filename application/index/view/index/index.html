@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨境电商实时大屏</title>
+    <link href="__ASSETS__/layui/css/layui.css" rel="stylesheet">
+    <style>
+        .title{
+            font-size: 50px;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-main">
+        <h1 class="title">跨境电商实时显示大屏幕</h1>
+        <table class="layui-hide" id="test"></table>
+    </div>
+    <script crossorigin="anonymous" integrity="sha384-LVoNJ6yst/aLxKvxwp6s2GAabqPczfWh6xzm38S/YtjUyZ+3aTKOnD/OJVGYLZDl" src="https://lib.baomitu.com/jquery/3.5.0/jquery.min.js"></script>
+    <script src="__ASSETS__/layui/layui.js"></script>
+    <script>
+        layui.use('table', function(){
+            var table = layui.table;
+            var t =table.render({
+                elem: '#test'
+                ,url:'__URL__/index/index/getordersinfo'
+                ,cols: [[
+                    {field:'status', title: '状态'}
+                    ,{field:'order_id', title: '订单编号'}
+                    ,{field:'name', title: '姓名'}
+                    ,{field:'tel', title: '电话'}
+                    ,{field:'p_name', title: '产品名称', width: '30%'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                ]]
+            });
+
+            //每十秒钟刷新页面
+            i = setInterval(function () {
+                t.reload();
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
